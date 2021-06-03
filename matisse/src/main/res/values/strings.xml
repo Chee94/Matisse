@@ -19,6 +19,7 @@
     tools:ignore="MissingTranslation">
     <string name="album_name_all">All Media</string>
 
+    <string name="button_edit">编辑</string>
     <string name="button_preview">Preview</string>
     <string name="button_apply_default">Apply</string>
     <string name="button_apply">Apply(%1$d)</string>
