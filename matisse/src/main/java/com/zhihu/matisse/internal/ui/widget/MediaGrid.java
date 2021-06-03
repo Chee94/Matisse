@@ -35,6 +35,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     private CheckView mCheckView;
     private ImageView mGifTag;
     private TextView mVideoDuration;
+    private View mViewMask;
 
     private Item mMedia;
     private PreBindInfo mPreBindInfo;
@@ -55,6 +56,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
         mThumbnail = (ImageView) findViewById(R.id.media_thumbnail);
         mCheckView = (CheckView) findViewById(R.id.check_view);
+        mViewMask = findViewById(R.id.view_mask);
         mGifTag = (ImageView) findViewById(R.id.gif);
         mVideoDuration = (TextView) findViewById(R.id.video_duration);
 
@@ -99,6 +101,11 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
     public void setCheckEnabled(boolean enabled) {
         mCheckView.setEnabled(enabled);
+        if (enabled) {
+            mViewMask.setVisibility(mCheckView.isChecked() ? GONE : VISIBLE);
+        } else {
+            mViewMask.setVisibility(GONE);
+        }
     }
 
     public void setCheckedNum(int checkedNum) {

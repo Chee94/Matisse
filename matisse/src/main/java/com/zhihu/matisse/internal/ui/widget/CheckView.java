@@ -120,6 +120,10 @@ public class CheckView extends View {
         invalidate();
     }
 
+    public boolean isChecked(){
+        return mCheckedNum != UNCHECKED||mChecked;
+    }
+
     public void setEnabled(boolean enabled) {
         if (mEnabled != enabled) {
             mEnabled = enabled;
