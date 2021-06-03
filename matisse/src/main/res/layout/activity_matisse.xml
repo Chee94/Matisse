@@ -52,12 +52,12 @@
 
         <TextView
             android:id="@+id/button_preview"
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:foreground="?selectableItemBackground"
             android:padding="16dp"
-            android:text="@string/button_preview"
+            android:text="@string/button_edit"
             android:textColor="?attr/bottomToolbar.preview.textColor"
             android:textSize="16sp" />
 
