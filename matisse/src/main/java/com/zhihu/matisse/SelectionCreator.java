@@ -225,6 +225,16 @@ public final class SelectionCreator {
     }
 
     /**
+     * 是否自定义编辑
+     * @param customEdit
+     * @return
+     */
+    public SelectionCreator setCustomEdit(boolean customEdit) {
+        mSelectionSpec.isCustomEdit = customEdit;
+        return this;
+    }
+
+    /**
      * Maximum original size,the unit is MB. Only useful when {link@originalEnable} set true
      *
      * @param size Maximum original size. Default value is Integer.MAX_VALUE

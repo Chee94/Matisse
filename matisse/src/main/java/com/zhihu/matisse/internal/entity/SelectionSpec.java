@@ -54,6 +54,8 @@ public final class SelectionSpec {
     public OnSelectedListener onSelectedListener;
     public boolean originalable;
     public boolean autoHideToobar;
+    public boolean isCustomEdit = false;
+
     public int originalMaxSize;
     public OnCheckedListener onCheckedListener;
     public boolean showPreview;

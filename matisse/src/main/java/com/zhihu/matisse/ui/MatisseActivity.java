@@ -74,6 +74,8 @@ public class MatisseActivity extends AppCompatActivity implements
     public static final String EXTRA_RESULT_SELECTION = "extra_result_selection";
     public static final String EXTRA_RESULT_SELECTION_PATH = "extra_result_selection_path";
     public static final String EXTRA_RESULT_ORIGINAL_ENABLE = "extra_result_original_enable";
+    public static final String EXTRA_RESULT_IS_EDIT = "extra_result_is_edit";
+
     private static final int REQUEST_CODE_PREVIEW = 23;
     private static final int REQUEST_CODE_CAPTURE = 24;
     public static final String CHECK_STATE = "checkState";
@@ -272,6 +274,12 @@ public class MatisseActivity extends AppCompatActivity implements
             mOriginalLayout.setVisibility(View.INVISIBLE);
         }
 
+        if (mSpec.isCustomEdit){
+            mButtonPreview.setText("编辑");
+        }else {
+            mButtonPreview.setText("预览");
+        }
+
 
     }
 
@@ -312,10 +320,22 @@ public class MatisseActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-            Intent intent = new Intent(this, SelectedPreviewActivity.class);
-            intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-            intent.putExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
-            startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+            if (mSpec.isCustomEdit){
+                Intent result = new Intent();
+                ArrayList<Uri> selectedUris = (ArrayList<Uri>) mSelectedCollection.asListOfUri();
+                result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
+                ArrayList<String> selectedPaths = (ArrayList<String>) mSelectedCollection.asListOfString();
+                result.putStringArrayListExtra(EXTRA_RESULT_SELECTION_PATH, selectedPaths);
+                result.putExtra(EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+                result.putExtra(EXTRA_RESULT_IS_EDIT,true);
+                setResult(RESULT_OK, result);
+                finish();
+            }else {
+                Intent intent = new Intent(this, SelectedPreviewActivity.class);
+                intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
+                intent.putExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+                startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+            }
         } else if (v.getId() == R.id.button_apply) {
             Intent result = new Intent();
             ArrayList<Uri> selectedUris = (ArrayList<Uri>) mSelectedCollection.asListOfUri();
@@ -323,6 +343,7 @@ public class MatisseActivity extends AppCompatActivity implements
             ArrayList<String> selectedPaths = (ArrayList<String>) mSelectedCollection.asListOfString();
             result.putStringArrayListExtra(EXTRA_RESULT_SELECTION_PATH, selectedPaths);
             result.putExtra(EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+            result.putExtra(EXTRA_RESULT_IS_EDIT,false);
             setResult(RESULT_OK, result);
             finish();
         } else if (v.getId() == R.id.originalLayout) {
